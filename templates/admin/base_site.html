@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}NITDA{% endblock %}
+{% block responsive %}
+<link rel="stylesheet" href="{% static 'assets/css/custom.css' %}">
+{% endblock %}
+{% block branding %}
+<h1 id="site-name" style="font-family: 'Myriad Pro', Arial;">
+    <a href="{% url 'admin:index' %}">
+    NITDA
+    </a>
+</h1>
+{% endblock %}
+
+{% block nav-global %}{% endblock %}

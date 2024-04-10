@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block body_block %}
+<h1>Hello there, Welcome!</h1>
+    {% for program in programs %}
+        <a href="{{ program.get_absolute_url }}">{{ program.program }}</a><br/><br/>
+    {% endfor %}
+{% endblock %}

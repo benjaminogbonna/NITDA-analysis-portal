@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}{{ program.program }}{% endblock %}
+
+
+{% block body_block %}
+    <h1>{{ program.program }}</h1>
+    <p>
+       Department: {{ program.department }}<br/>
+       Year: {{ program.year }}<br/>
+       {{ program.description }}<br/>
+       {{ program.file }} | {{ href|safe }}
+       {{ male }}
+    </p>
+    {% if table %}
+        {{ table|safe }}
+     <br/>
+    {% endif %}
+
+{% endblock %}

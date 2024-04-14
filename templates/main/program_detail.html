@@ -2,9 +2,184 @@
 {% load static %}
 {% block title %}{{ program.program }}{% endblock %}
 
+{% block content_block %}
+<script>
+    document.getElementsByClassName('dataframe').classList.add('table');
+    let y = document.getElementsByTagName('table')[0];
+    y.className += 'table';
+    let x = document.getElementsByClassName('dataframe');
+    x.className += 'table'
+    console.log(y)
+</script>
+   <div class="content">
+       <div class="container-fluid">
+        <h4 class="page-title">{{ program.program }}</h4>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card card-stats card-warning">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="la la-users"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">Department</p>
+                                    <h4 class="card-title">{{ program.department }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-stats card-success">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="la la-bar-chart"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">Year</p>
+                                    <h4 class="card-title">{{ program.year }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-stats card-danger">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="la la-newspaper-o"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">Participants</p>
+                                    <h4 class="card-title">{{ total_participants }}</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card card-stats card-primary">
+                    <div class="card-body ">
+                        <div class="row">
+                            <div class="col-5">
+                                <div class="icon-big text-center">
+                                    <i class="la la-check-circle"></i>
+                                </div>
+                            </div>
+                            <div class="col-7 d-flex align-items-center">
+                                <div class="numbers">
+                                    <p class="card-category">Order</p>
+                                    <h4 class="card-title">576</h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-{% block body_block %}
-    <h1>{{ program.program }}</h1>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Statistics</h4>
+                        <p class="card-category">
+                        Participants statistics</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="monthlyChart" class="chart chart-pie"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">2018 Sales</h4>
+                        <p class="card-category">
+                        Number of products sold</p>
+                    </div>
+                    <div class="card-body">
+                        <div id="salesChart" class="chart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">Table</div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-sub">
+                            Create responsive tables by wrapping any table with <code class="highlighter-rouge">.table-responsive</code> <code class="highlighter-rouge">DIV</code> to make them scroll horizontally on small devices
+                        </div>
+                        <div class="table-responsive">
+                            {{ table|safe }}
+                            <table class="table table-bordered">
+
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                        <th>Table heading</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">1</th>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">2</th>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">3</th>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                        <td>Table cell</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   </div>
+<h1>{{ program.program }}</h1>
     <p>
        Department: {{ program.department }}<br/>
        Year: {{ program.year }}<br/>
@@ -13,8 +188,39 @@
        {{ male }}
     </p>
     {% if table %}
-        {{ table|safe }}
+        {{ tabl|safe }}
      <br/>
     {% endif %}
 
+{% block script %}
+<script src="{% static 'assets/js/core/jquery.3.2.1.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js' %}"></script>
+<script src="{% static 'assets/js/core/popper.min.js' %}"></script>
+<script src="{% static 'assets/js/core/bootstrap.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/chartist/chartist.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/chartist/plugin/chartist-plugin-tooltip.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/bootstrap-notify/bootstrap-notify.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/bootstrap-toggle/bootstrap-toggle.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/jquery-mapael/jquery.mapael.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/jquery-mapael/maps/world_countries.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/chart-circle/circles.min.js' %}"></script>
+<script src="{% static 'assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js' %}"></script>
+<script src="{% static 'assets/js/ready.min.js' %}"></script>
+<script src="{% static 'assets/js/demo.js' %}"></script>
+{% endblock %}
+<script>
+
+let free_sellers = Math.round(60.0);
+let starter_sellers = Math.round(20.0);
+let premium_sellers = Math.round(20.0);
+
+Chartist.Pie('#monthlyChart', {
+	labels: [free_sellers+'% Free', starter_sellers+'% Strt', premium_sellers+'% Pre'],
+	series: [free_sellers, starter_sellers, premium_sellers]
+}, {
+	plugins: [
+	Chartist.plugins.tooltip()
+	]
+});
+</script>
 {% endblock %}

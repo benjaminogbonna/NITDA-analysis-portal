@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Programs{% endblock %}
+
+{% block content_block %}
+
+<div class="content">
+	<div class="container-fluid">
+		<h4 class="page-title">Programs</h4>
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header ">
+						<h4 class="card-title">
+							{% with programs.count as total_programs %}
+                               {{ total_programs }} Program{{ total_programs|pluralize }}
+                            {% endwith %}
+						</h4>
+<!--						<p class="card-category">Users Table</p>-->
+					</div>
+					<div class="card-body">
+						<table class="table table-head-bg-success table-striped table-hover">
+							<thead>
+								<tr>
+<!--									<th scope="col">#</th>-->
+									<th scope="col">Program</th>
+									<th scope="col">Department</th>
+									<th scope="col">Year</th>
+								</tr>
+							</thead>
+							<tbody>
+								{% for program in programs %}
+									<tr>
+<!--										<td>-->
+<!--											{% for i in num_departments %}-->
+<!--												{{ forloop.counter }}-->
+<!--											{% endfor %}-->
+<!--										</td>-->
+										<td>
+											<a href="{{ program.get_absolute_url }}">{{ program.program }}</a>
+
+										</td>
+										<td>
+											<a href="{{ program.department.get_absolute_url }}">
+												{{ program.department }}
+											</a>
+										</td>
+										<td>{{ program.year }}</td>
+									</tr>
+								{% endfor %}
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}

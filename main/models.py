@@ -16,7 +16,7 @@ class Department(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('main:program_list_by_department', args=[self.slug])
+        return reverse('main:department', args=[self.slug])
 
 
 def program_file_path(instance, file):
@@ -35,7 +35,7 @@ class Program(models.Model):
     date_uploaded = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        ordering = ('-date_uploaded',)
+        ordering = ('date_uploaded',)
         # index_together = (('id', 'slug'),)
 
     def __str__(self):

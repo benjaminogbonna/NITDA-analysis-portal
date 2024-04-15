@@ -12,36 +12,38 @@
 				<div class="card">
 					<div class="card-header ">
 						<h4 class="card-title">
-                            {% with department.programs.count as total_programs %}
+                            {% with programs.count as total_programs %}
                                {{ total_programs }} Program{{ total_programs|pluralize }} Done
                             {% endwith %}
                         </h4>
 <!--						<p class="card-category">Users Table</p>-->
 					</div>
 					<div class="card-body">
-						<table class="table table-head-bg-success table-striped table-hover">
-							<thead>
-								<tr>
-<!--									<th scope="col">#</th>-->
-									<th scope="col">Name</th>
-									<th scope="col">Year</th>
-									<th scope="col">Head</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for program in department.programs.all %}
+						<div class="table-responsive">
+							<table class="table table-head-bg-success table-striped table-hover">
+								<thead>
 									<tr>
-										<td>
-											<b>
-												<a href="{{ program.get_absolute_url }}">{{ program.program }}</a>
-											</b>
-										</td>
-										<td>{{ program.year }}</td>
-										<td>Benjamin</td>
+	<!--									<th scope="col">#</th>-->
+										<th scope="col">Name</th>
+										<th scope="col">Year</th>
+										<th scope="col">Head</th>
 									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{% for program in programs %}
+										<tr>
+											<td>
+												<b>
+													<a href="{{ program.get_absolute_url }}">{{ program.program }}</a>
+												</b>
+											</td>
+											<td>{{ program.year }}</td>
+											<td>Benjamin</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

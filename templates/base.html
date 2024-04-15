@@ -11,6 +11,8 @@
 	<link rel="stylesheet" href="../css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i">
 	<link rel="stylesheet" href="{% static 'assets/css/ready.css' %}">
 	<link rel="stylesheet" href="{% static 'assets/css/demo.css' %}">
+	{% block style %}
+	{% endblock %}
 </head>
 <body>
 	<div class="wrapper">
@@ -51,36 +53,36 @@
 							<a href="{% url 'main:programs' %}">
 								<i class="la la-keyboard-o"></i>
 								<p>Programs</p>
-								<span class="badge badge-count">50</span>
+								<span class="badge badge-count">{{ total_programs }}</span>
 							</a>
 						</li>
-						<li class="nav-item">
-							<a href="tables.html">
-								<i class="la la-th"></i>
-								<p>Tables</p>
-								<span class="badge badge-count">6</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="notifications.html">
-								<i class="la la-bell"></i>
-								<p>Notifications</p>
-								<span class="badge badge-success">3</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="typography.html">
-								<i class="la la-font"></i>
-								<p>Typography</p>
-								<span class="badge badge-danger">25</span>
-							</a>
-						</li>
-						<li class="nav-item">
-							<a href="icons.html">
-								<i class="la la-fonticons"></i>
-								<p>Icons</p>
-							</a>
-						</li>
+<!--						<li class="nav-item">-->
+<!--							<a href="tables.html">-->
+<!--								<i class="la la-th"></i>-->
+<!--								<p>Tables</p>-->
+<!--								<span class="badge badge-count">6</span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li class="nav-item">-->
+<!--							<a href="notifications.html">-->
+<!--								<i class="la la-bell"></i>-->
+<!--								<p>Notifications</p>-->
+<!--								<span class="badge badge-success">3</span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li class="nav-item">-->
+<!--							<a href="typography.html">-->
+<!--								<i class="la la-font"></i>-->
+<!--								<p>Typography</p>-->
+<!--								<span class="badge badge-danger">25</span>-->
+<!--							</a>-->
+<!--						</li>-->
+<!--						<li class="nav-item">-->
+<!--							<a href="icons.html">-->
+<!--								<i class="la la-fonticons"></i>-->
+<!--								<p>Icons</p>-->
+<!--							</a>-->
+<!--						</li>-->
 					</ul>
 				</div>
 			</div>

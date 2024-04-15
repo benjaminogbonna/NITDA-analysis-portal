@@ -19,34 +19,36 @@
 <!--						<p class="card-category">Users Table</p>-->
 					</div>
 					<div class="card-body">
-						<table class="table table-head-bg-success table-striped table-hover">
-							<thead>
-								<tr>
-<!--									<th scope="col">#</th>-->
-									<th scope="col">Name</th>
-									<th scope="col">Number of programs</th>
-									<th scope="col">Head</th>
-								</tr>
-							</thead>
-							<tbody>
-								{% for department in departments %}
+						<div class="table-responsive">
+							<table class="table table-head-bg-success table-striped table-hover">
+								<thead>
 									<tr>
-<!--										<td>-->
-<!--											{% for i in num_departments %}-->
-<!--												{{ forloop.counter }}-->
-<!--											{% endfor %}-->
-<!--										</td>-->
-										<td>
-											<b>
-												<a href="{{ department.get_absolute_url }}">{{ department.name }}</a>
-											</b>
-										</td>
-										<td>{{ department.programs.count }}</td>
-										<td>Benjamin</td>
+	<!--									<th scope="col">#</th>-->
+										<th scope="col">Name</th>
+										<th scope="col">Number of programs</th>
+										<th scope="col">Head</th>
 									</tr>
-								{% endfor %}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{% for department in departments %}
+										<tr>
+	<!--										<td>-->
+	<!--											{% for i in num_departments %}-->
+	<!--												{{ forloop.counter }}-->
+	<!--											{% endfor %}-->
+	<!--										</td>-->
+											<td>
+												<b>
+													<a href="{{ department.get_absolute_url }}">{{ department.name }}</a>
+												</b>
+											</td>
+											<td>{{ department.programs.count }}</td>
+											<td>Benjamin</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>

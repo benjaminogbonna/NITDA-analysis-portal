@@ -1,15 +1,26 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}{{ program.program }}{% endblock %}
+{% block style %}
+<style>
+    table {
+            //overflow-y:scroll;
+            height:500px;
+            display: block;
+            //border-collapse: collapse
+        }
+</style>
+{% endblock %}
+
 
 {% block content_block %}
 <script>
-    document.getElementsByClassName('dataframe').classList.add('table');
-    let y = document.getElementsByTagName('table')[0];
-    y.className += 'table';
-    let x = document.getElementsByClassName('dataframe');
-    x.className += 'table'
-    console.log(y)
+<!--    document.getElementsByClassName('dataframe').classList.add('table');-->
+<!--    let y = document.getElementsByTagName('table')[0];-->
+<!--    y.className += 'table';-->
+<!--    let x = document.getElementsByClassName('dataframe');-->
+<!--    x.className += 'table'-->
+<!--    console.log(y)-->
 </script>
    <div class="content">
        <div class="container-fluid">
@@ -21,7 +32,7 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="la la-users"></i>
+                                    <i class="la la-table"></i>
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
@@ -40,7 +51,7 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="la la-bar-chart"></i>
+                                    <i class="la la-calendar"></i>
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
@@ -59,7 +70,7 @@
                         <div class="row">
                             <div class="col-5">
                                 <div class="icon-big text-center">
-                                    <i class="la la-newspaper-o"></i>
+                                    <i class="la la-users"></i>
                                 </div>
                             </div>
                             <div class="col-7 d-flex align-items-center">
@@ -72,29 +83,46 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-3">
-                <div class="card card-stats card-primary">
-                    <div class="card-body ">
-                        <div class="row">
-                            <div class="col-5">
-                                <div class="icon-big text-center">
-                                    <i class="la la-check-circle"></i>
-                                </div>
-                            </div>
-                            <div class="col-7 d-flex align-items-center">
-                                <div class="numbers">
-                                    <p class="card-category">Order</p>
-                                    <h4 class="card-title">576</h4>
-                                </div>
-                            </div>
-                        </div>
+<!--            <div class="col-md-3">-->
+<!--                <div class="card card-stats card-primary">-->
+<!--                    <div class="card-body ">-->
+<!--                        <div class="row">-->
+<!--                            <div class="col-5">-->
+<!--                                <div class="icon-big text-center">-->
+<!--                                    <i class="la la-check-circle"></i>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="col-7 d-flex align-items-center">-->
+<!--                                <div class="numbers">-->
+<!--                                    <p class="card-category">Order</p>-->
+<!--                                    <h4 class="card-title">576</h4>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Description</h4>
+                        <p class="card-category">
+                            About {{ program.program }}
+                            {{ href|safe }}
+                        </p>
+                    </div>
+                    <div class="card-body">
+                         <p class="card-category">
+                             {{ program.description }}
+                         </p>
                     </div>
                 </div>
             </div>
         </div>
-
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title">Statistics</h4>
@@ -102,76 +130,58 @@
                         Participants statistics</p>
                     </div>
                     <div class="card-body">
-                        <div id="monthlyChart" class="chart chart-pie"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">2018 Sales</h4>
-                        <p class="card-category">
-                        Number of products sold</p>
-                    </div>
-                    <div class="card-body">
-                        <div id="salesChart" class="chart"></div>
+<!--                        <div id="monthlyChart" class="chart chart-pie"></div>-->
+                        {% autoescape off %}
+                            {{ gender_plot }}
+                        {% endautoescape %}
                     </div>
                 </div>
             </div>
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <div class="card-title">Table</div>
+                        <h4 class="card-title">Participants By State</h4>
+                        <p class="card-category">
+                            Number of participants from each state.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                         {% autoescape off %}
+                            {{ state_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Participants By LGA</h4>
+                        <p class="card-category">
+                            Number of participants from each local government.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                         {% autoescape off %}
+                            {{ lga_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Table
+                            {{ href|safe }}
+
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="card-sub">
-                            Create responsive tables by wrapping any table with <code class="highlighter-rouge">.table-responsive</code> <code class="highlighter-rouge">DIV</code> to make them scroll horizontally on small devices
+                            .
                         </div>
                         <div class="table-responsive">
                             {{ table|safe }}
-                            <table class="table table-bordered">
-
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Table heading</th>
-                                        <th>Table heading</th>
-                                        <th>Table heading</th>
-                                        <th>Table heading</th>
-                                        <th>Table heading</th>
-                                        <th>Table heading</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">1</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">2</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">3</th>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                        <td>Table cell</td>
-                                    </tr>
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
@@ -179,18 +189,6 @@
         </div>
     </div>
    </div>
-<h1>{{ program.program }}</h1>
-    <p>
-       Department: {{ program.department }}<br/>
-       Year: {{ program.year }}<br/>
-       {{ program.description }}<br/>
-       {{ program.file }} | {{ href|safe }}
-       {{ male }}
-    </p>
-    {% if table %}
-        {{ tabl|safe }}
-     <br/>
-    {% endif %}
 
 {% block script %}
 <script src="{% static 'assets/js/core/jquery.3.2.1.min.js' %}"></script>
@@ -224,3 +222,6 @@ Chartist.Pie('#monthlyChart', {
 });
 </script>
 {% endblock %}
+<table class="table table-bordered table-head-bg-primary mt-4">
+
+                            </table>

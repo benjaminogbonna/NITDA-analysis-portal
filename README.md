@@ -4,8 +4,6 @@
 This is Cheaper's official repository.
 
 ## Installation
-still to come
-
 
 ```bash
 pip install -r requirements.txt

@@ -9,12 +9,54 @@ import os
 from plotly.offline import plot
 import plotly.graph_objs as go
 import plotly.express as ex
+from collections import Counter
 
 
 def index(request):
     programs = [program for program in Program.objects.all()]
-    files = [pd.read_excel(program.file) for program in programs]
-    total_participants = sum([len(file.index) for file in files])
+    dfs = [pd.read_excel(program.file) for program in programs]
+    # data_frame_new = dfs[0][['Name of the Beneficiary ', 'Gender', 'Age Range', 'Phone number ', 'Email Adress',
+    #                          'Capacity Building Program', 'State', 'L.G.A', 'Year ', 'Department', 'Duration',
+    #                          'Skills/experience level',
+    #                          'Training category (Digital literacy, Digital skills or IT specialised skills', 'Status']]
+
+    num_pro_by_dept = [program.department.name for program in programs]
+    temp_count = Counter(num_pro_by_dept)
+    # count = [[i, temp_count[i]] for i in temp_count]
+    debt_df = pd.DataFrame(num_pro_by_dept, columns=['Department'])
+    department = debt_df['Department'].value_counts()
+    dept_bar = ex.bar(department, department.index.tolist())
+    dept_plot = plot(dept_bar, output_type='div')
+
+    df = pd.concat(dfs, ignore_index=True)
+    csv = df.to_csv()
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f"<a href='data:file/csv;base64,{b64}'download='data.csv' \
+        class='btn btn-primary btn-xs float-right' target='_blank'><i class='la la-download'></i> Download File</a>"
+    gender = df['Gender'].value_counts()
+    state = df['State'].value_counts()
+    lga = df['L.G.A'].value_counts()
+    age = df['Age Range'].value_counts()
+
+    age_bar = ex.bar(age, opacity=1, color=age.index.tolist())
+    age_plot = plot(age_bar, output_type='div')
+    print(df['Age Range'].value_counts().index.tolist())
+
+    gender_pie = ex.pie(gender, values=gender,
+                        names=gender.index.tolist()
+                        )
+    gender_plot = plot(gender_pie, output_type='div', include_plotlyjs=True, show_link=False)
+
+    state_bar = ex.bar(state, opacity=1, height=900, orientation='h')
+    state_plot = plot(state_bar, output_type='div',
+                      # show_link=False, link_text='',
+                      # image_filename=f'{program.program}', image='jpeg'
+                      )
+
+    lga_bar = ex.bar(lga, opacity=1, height=700, orientation='h')
+    lga_plot = plot(lga_bar, output_type='div')
+
+    total_participants = sum([len(df.index) for df in dfs])
     years = set(program.year for program in programs)
     years = f'{min(years)}-{max(years)}'
 
@@ -23,6 +65,13 @@ def index(request):
         'years': years,
         'total_departments': Department.objects.count(),
         'total_programs': Program.objects.count(),
+        'href': href,
+        'gender_plot': gender_plot,
+        'state_plot': state_plot,
+        'lga_plot': lga_plot,
+        'table': df.to_html(),
+        'dept_plot': dept_plot,
+        'age_plot': age_plot,
     }
     return render(request, 'main/index.html', context)
 
@@ -36,7 +85,6 @@ def departments(request):
         'num_departments': [x for x in range(departments.count())],
         'total_programs': Program.objects.count(),
     }
-    print(context['num_departments'])
     return render(request, 'main/departments.html', context)
 
 
@@ -54,7 +102,7 @@ def department(request, slug):
 
 
 def programs(request):
-    programs = Program.objects.order_by('date_uploaded')
+    programs = Program.objects.order_by('-date_uploaded')
 
     context = {
         'programs': programs,
@@ -78,14 +126,18 @@ def program_detail(request, id, slug):
     lga = df['L.G.A'].value_counts()
 
     # pie = go.Pie(values=gender, name='Test', labels=['Male', 'Female'], title='Gender')
-    gender_pie = ex.pie(gender, values=gender, names=['Male', 'Female'])
-    state_bar = ex.bar(state)
-    lga_bar = ex.bar(lga)
+    gender_pie = ex.pie(gender, values=gender,
+                        names=gender.index.tolist()
+                        )
+    state_bar = ex.bar(state, opacity=1, height=900, orientation='h')
+    lga_bar = ex.bar(lga, opacity=1, height=700, orientation='h')
 
-    gender_plot = plot(gender_pie, output_type='div')
-    state_plot = plot(state_bar, output_type='div')
+    gender_plot = plot(gender_pie, output_type='div', include_plotlyjs=True, show_link=False)
+    state_plot = plot(state_bar, output_type='div',
+                      # show_link=False, link_text='',
+                      # image_filename=f'{program.program}', image='jpeg'
+                      )
     lga_plot = plot(lga_bar, output_type='div')
-
     context = {
         'program': program,
         'table': file.to_html(),

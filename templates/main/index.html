@@ -1,11 +1,111 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}NITDA{% endblock %}
-
+{% block style %}
+<style>
+    table {
+            //overflow: hidden;
+            overflow-y:scroll;
+            height:500px;
+            display: block;
+            border-collapse: collapse
+        }
+        thead {
+            background-color: #59d05d;
+            color: #ffffff;
+        }
+        td, th {
+            border 1px solid #dddddd;
+            text-align: left;
+            padding: 5px;
+        }
+        tr:nth-child(even) {
+            background-color: #ebedf2;
+        }
+</style>
+{% endblock %}
 {% block content_block %}
 
 <div class="content">
 	<div class="container-fluid">
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header ">
+						<h4 class="card-title">About</h4>
+<!--						<p class="card-category">Users Table</p>-->
+					</div>
+					<div class="card-body">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
+							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
+							Architecto atque, eaque exercitationem explicabo fuga pariatur. Lorem ipsum dolor sit amet,
+							consectetur adipisicing elit. Amet consectetur exercitationem iusto repudiandae veritatis?
+							Animi fugit hic iste, placeat quisquam soluta ut voluptas. Architecto atque, eaque
+							exercitationem explicabo fuga pariatur.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header ">
+						<h4 class="card-title">Vision</h4>
+<!--						<p class="card-category">Users Table</p>-->
+					</div>
+					<div class="card-body">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
+							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
+							Architecto atque, eaque exercitationem explicabo fuga pariatur.
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-header ">
+						<h4 class="card-title">Mission</h4>
+<!--						<p class="card-category">Users Table</p>-->
+					</div>
+					<div class="card-body">
+						<p>
+							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
+							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
+							Architecto atque, eaque exercitationem explicabo fuga pariatur.
+						</p>
+					</div>
+				</div>
+			</div>
+
+<!--			<div class="col-md-4">-->
+<!--				<div class="card">-->
+<!--					<div class="card-header">-->
+<!--						<h4 class="card-title">Users Statistics</h4>-->
+<!--						<p class="card-category">-->
+<!--						Users statistics this month</p>-->
+<!--					</div>-->
+<!--					<div class="card-body">-->
+<!--						<div id="monthlyChart" class="chart chart-pie"></div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<div class="col-md-8">-->
+<!--				<div class="card">-->
+<!--					<div class="card-header">-->
+<!--						<h4 class="card-title">2018 Sales</h4>-->
+<!--						<p class="card-category">-->
+<!--						Number of products sold</p>-->
+<!--					</div>-->
+<!--					<div class="card-body">-->
+<!--						<div id="salesChart" class="chart"></div>-->
+<!--					</div>-->
+<!--				</div>-->
+<!--			</div>-->
+
+		</div>
+
 		<h4 class="page-title">Statistics</h4>
 		<div class="row">
 			<div class="col-md-6">
@@ -162,82 +262,101 @@
 			</div> -->
 		</div>
 		<div class="row">
-
 			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header ">
-						<h4 class="card-title">About</h4>
-<!--						<p class="card-category">Users Table</p>-->
-					</div>
-					<div class="card-body">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
-							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
-							Architecto atque, eaque exercitationem explicabo fuga pariatur. Lorem ipsum dolor sit amet,
-							consectetur adipisicing elit. Amet consectetur exercitationem iusto repudiandae veritatis?
-							Animi fugit hic iste, placeat quisquam soluta ut voluptas. Architecto atque, eaque
-							exercitationem explicabo fuga pariatur.
-						</p>
-					</div>
-				</div>
-			</div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Departments</h4>
+                        <p class="card-category">
+                            Number of Programs Completed by each Department.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        {% autoescape off %}
+                           {{ dept_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Statistics</h4>
+                        <p class="card-category">
+                        Number of participants by Gender</p>
+                    </div>
+                    <div class="card-body">
+<!--                        <div id="monthlyChart" class="chart chart-pie"></div>-->
+                        {% autoescape off %}
+                            {{ gender_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
 			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header ">
-						<h4 class="card-title">Vision</h4>
-<!--						<p class="card-category">Users Table</p>-->
-					</div>
-					<div class="card-body">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
-							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
-							Architecto atque, eaque exercitationem explicabo fuga pariatur.
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="card">
-					<div class="card-header ">
-						<h4 class="card-title">Mission</h4>
-<!--						<p class="card-category">Users Table</p>-->
-					</div>
-					<div class="card-body">
-						<p>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet consectetur exercitationem
-							iusto repudiandae veritatis? Animi fugit hic iste, placeat quisquam soluta ut voluptas.
-							Architecto atque, eaque exercitationem explicabo fuga pariatur.
-						</p>
-					</div>
-				</div>
-			</div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Age</h4>
+                        <p class="card-category">
+                        Age Range of Participants</p>
+                    </div>
+                    <div class="card-body">
+<!--                        <div id="monthlyChart" class="chart chart-pie"></div>-->
+                        {% autoescape off %}
+                            {{ age_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Participants By State</h4>
+                        <p class="card-category">
+                            Number of participants from each state.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                         {% autoescape off %}
+                            {{ state_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Participants By LGA</h4>
+                        <p class="card-category">
+                            Number of participants from each local government.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                         {% autoescape off %}
+                            {{ lga_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            Table
+                            {{ href|safe }}
 
-<!--			<div class="col-md-4">-->
-<!--				<div class="card">-->
-<!--					<div class="card-header">-->
-<!--						<h4 class="card-title">Users Statistics</h4>-->
-<!--						<p class="card-category">-->
-<!--						Users statistics this month</p>-->
-<!--					</div>-->
-<!--					<div class="card-body">-->
-<!--						<div id="monthlyChart" class="chart chart-pie"></div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-<!--			<div class="col-md-8">-->
-<!--				<div class="card">-->
-<!--					<div class="card-header">-->
-<!--						<h4 class="card-title">2018 Sales</h4>-->
-<!--						<p class="card-category">-->
-<!--						Number of products sold</p>-->
-<!--					</div>-->
-<!--					<div class="card-body">-->
-<!--						<div id="salesChart" class="chart"></div>-->
-<!--					</div>-->
-<!--				</div>-->
-<!--			</div>-->
-
-		</div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+<!--                        <div class="card-sub">-->
+<!--                            .-->
+<!--                        </div>-->
+                        <div class="table-responsiv">
+                            {{ table|safe }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 	</div>
 </div>
 

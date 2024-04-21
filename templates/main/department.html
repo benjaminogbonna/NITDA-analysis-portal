@@ -13,7 +13,7 @@
 					<div class="card-header ">
 						<h4 class="card-title">
                             {% with programs.count as total_programs %}
-                               {{ total_programs }} Program{{ total_programs|pluralize }} Done
+                               {{ total_programs }} Program{{ total_programs|pluralize }} Done under {{ department.name }}
                             {% endwith %}
                         </h4>
 <!--						<p class="card-category">Users Table</p>-->

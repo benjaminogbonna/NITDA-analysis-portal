@@ -53,6 +53,39 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Departments</h4>
+                        <p class="card-category">
+                            Number of Programs Completed by each Department.
+                        </p>
+                    </div>
+                    <div class="card-body">
+                        {% autoescape off %}
+                           {{ depts_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Statistics</h4>
+                        <p class="card-category">
+                        Number of participants by Gender</p>
+                    </div>
+                    <div class="card-body">
+<!--                        <div id="monthlyChart" class="chart chart-pie"></div>-->
+                        {% autoescape off %}
+                            {{ gender_plot }}
+                        {% endautoescape %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
 	</div>
 </div>
 

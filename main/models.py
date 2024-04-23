@@ -6,6 +6,7 @@ from django.urls import reverse
 class Department(models.Model):
     name = models.CharField(max_length=150, db_index=True)
     slug = models.SlugField(max_length=200, unique=True)
+    description = models.TextField(blank=False, default='')
 
     class Meta:
         ordering = ('name',)
@@ -29,7 +30,7 @@ class Program(models.Model):
     slug = models.SlugField(max_length=200, db_index=True)
     department = models.ForeignKey(Department, max_length=150, related_name='programs',  on_delete=models.CASCADE)
     year = models.PositiveIntegerField()
-    description = models.TextField(blank=True)
+    description = models.TextField(blank=False)
     # file = models.FileField(upload_to='data/year/department/program/', blank=False)
     file = models.FileField(upload_to=program_file_path, blank=False)
     date_uploaded = models.DateTimeField(auto_now_add=True)

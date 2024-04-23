@@ -25,8 +25,17 @@ def index(request):
     # count = [[i, temp_count[i]] for i in temp_count]
     debt_df = pd.DataFrame(num_pro_by_dept, columns=['Department'])
     department = debt_df['Department'].value_counts()
-    dept_bar = ex.bar(department, department.index.tolist())
+    dept_bar = ex.bar(department, color=department.index.tolist())
     dept_plot = plot(dept_bar, output_type='div')
+
+    years = [program.year for program in programs]
+    temp_count = Counter(years)
+    year_df = pd.DataFrame(years, columns=['Year'])
+    year = year_df['Year'].value_counts()
+    # x=year.index.tolist(), y=year.values.tolist()
+    year_line = ex.line(year, markers=True)\
+        .update_layout(xaxis_title='Year', yaxis_title='Number of Programs').update_traces(line_color='red')
+    year_plot = plot(year_line, output_type='div')
 
     df = pd.concat(dfs, ignore_index=True)
     csv = df.to_csv()
@@ -40,7 +49,6 @@ def index(request):
 
     age_bar = ex.bar(age, opacity=1, color=age.index.tolist())
     age_plot = plot(age_bar, output_type='div')
-    print(df['Age Range'].value_counts().index.tolist())
 
     gender_pie = ex.pie(gender, values=gender,
                         names=gender.index.tolist()
@@ -72,6 +80,7 @@ def index(request):
         'table': df.to_html(),
         'dept_plot': dept_plot,
         'age_plot': age_plot,
+        'year_plot': year_plot,
     }
     return render(request, 'main/index.html', context)
 
@@ -79,11 +88,20 @@ def index(request):
 def departments(request):
     departments = Department.objects.order_by('name')
 
+    dept = [dept.name for dept in departments]
+    num_pro = [dept.programs.count() for dept in departments]
+    df = pd.DataFrame(dict(
+        department=dept,
+        value=num_pro))
+    depts_bar = ex.bar(df, x='department', y='value', opacity=1, color='department')
+    depts_plot = plot(depts_bar, output_type='div')
+
     context = {
         'departments': departments,
         'total_departments': Department.objects.count(),
         'num_departments': [x for x in range(departments.count())],
         'total_programs': Program.objects.count(),
+        'depts_plot': depts_plot,
     }
     return render(request, 'main/departments.html', context)
 

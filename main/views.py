@@ -31,7 +31,7 @@ def index(request):
     years = [program.year for program in programs]
     temp_count = Counter(years)
     year_df = pd.DataFrame(years, columns=['Year'])
-    year = year_df['Year'].value_counts()
+    year = year_df['Year'].value_counts().sort_index()
     # x=year.index.tolist(), y=year.values.tolist()
     year_line = ex.line(year, markers=True)\
         .update_layout(xaxis_title='Year', yaxis_title='Number of Programs').update_traces(line_color='red')
@@ -66,10 +66,12 @@ def index(request):
 
     total_participants = sum([len(df.index) for df in dfs])
     years = set(program.year for program in programs)
+    total_years = len(years)
     years = f'{min(years)}-{max(years)}'
 
     context = {
         'total_participants': total_participants,
+        'total_years': total_years,
         'years': years,
         'total_departments': Department.objects.count(),
         'total_programs': Program.objects.count(),
@@ -110,11 +112,21 @@ def department(request, slug):
     department = get_object_or_404(Department, slug=slug)
     # programs = Department.programs()
     programs = department.programs.all().order_by('-date_uploaded')
+
+    years = [program.year for program in programs]
+    temp_count = Counter(years)
+    year_df = pd.DataFrame(years, columns=['Year'])
+    year = year_df['Year'].value_counts().sort_index()
+    year_line = ex.line(year, markers=True) \
+        .update_layout(xaxis_title='Year', yaxis_title='Number of Programs').update_traces(line_color='blue')
+    year_plot = plot(year_line, output_type='div')
+
     context = {
         'programs': programs,
         'department': department,
         'total_departments': Department.objects.count(),
         'total_programs': Program.objects.count(),
+        'year_plot': year_plot,
     }
     return render(request, 'main/department.html', context)
 

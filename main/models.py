@@ -31,13 +31,14 @@ class Program(models.Model):
     department = models.ForeignKey(Department, max_length=150, related_name='programs',  on_delete=models.CASCADE)
     year = models.PositiveIntegerField()
     description = models.TextField(blank=False)
-    # file = models.FileField(upload_to='data/year/department/program/', blank=False)
     file = models.FileField(upload_to=program_file_path, blank=False)
     date_uploaded = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         ordering = ('date_uploaded',)
         # index_together = (('id', 'slug'),)
+        verbose_name = 'program'
+        verbose_name_plural = 'programs'
 
     def __str__(self):
         return self.program
